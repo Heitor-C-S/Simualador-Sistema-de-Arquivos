@@ -1,4 +1,5 @@
 import sys 
+from sistema_arquivos import FileSystem
 
 def parse_tamanho(tamanho_str): 
     tamanho_str = tamanho_str.upper()
@@ -9,6 +10,9 @@ def parse_tamanho(tamanho_str):
     return int(tamanho_str) #caso não tenha nenhum sufixo escrito
 
 def iniciar_cli():
+
+    fs = FileSystem()
+
     em_andamento = "Em andamento..."
 
     print("===== CLI - Sistema de Arquivos =====")
@@ -33,8 +37,8 @@ def iniciar_cli():
                     print("Uso correto: >mkdir <caminho> (ex.: mkdir downloads)")
                     continue
                 caminho = partes[1]
-                # TODO: criar funcao mkdir
-                print(em_andamento)
+                resultado = fs.mkdir(caminho)
+                print(resultado)
                 
             # Comando 3 - create
             elif comando == 'create':
