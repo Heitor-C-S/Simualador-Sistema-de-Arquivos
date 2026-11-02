@@ -1,5 +1,6 @@
 # sistema_arquivos.py
 import math
+from relatorios import gerar_arvore, calcular_totais
 
 #Constantes
 TAMANHO_BLOCO = 4096
@@ -88,8 +89,33 @@ class FileSystem:
 
         return f" Arquivo '{nome_arquivo}' criado com sucesso. Esta ocupando {blocos_necessarios} bloco(s)."
 
-
-
-
-
-
+    # --- FUNCAO 3: FS_STATUS --- #
+    def fs_status(self, detalhes=False):
+        saida = ["\n[ÁRVORE DO SISTEMA DE ARQUIVOS]"]
+        
+        # Usa a função externa passando a raiz
+        saida.extend(gerar_arvore(self.raiz))
+        
+        saida.append(f"\nTamanho do Bloco de Disco: {TAMANHO_BLOCO} B | Total de Blocos: {TOTAL_BLOCOS} ({TOTAL_BLOCOS * TAMANHO_BLOCO} B)")
+        
+        if detalhes:
+            saida.append("\n[MAPA DE ALOCAÇÃO DO DISCO (Indexado)]")
+            for i, b in enumerate(self.disco):
+                if b is None:
+                    saida.append(f"Bloco {i:02d} : [LIVRE]")
+                else:
+                    saida.append(f"Bloco {i:02d} : [OCUPADO] -> '{b}'")
+                    
+            saida.append("\n--- RELATÓRIO DE FRAGMENTAÇÃO ---")
+            
+            # Usa a função externa passando a raiz e a constante do tamanho do bloco
+            tamanho_real, tamanho_alocado = calcular_totais(self.raiz, TAMANHO_BLOCO)
+            frag_interna = tamanho_alocado - tamanho_real
+            
+            saida.append(f"Tamanho Real dos Arquivos : {tamanho_real} bytes")
+            saida.append(f"Espaço Alocado no Disco   : {tamanho_alocado} bytes")
+            saida.append(f"Fragmentação Interna      : {frag_interna} bytes (Desperdício dentro dos blocos)")
+            saida.append("Fragmentação Externa      : 0 bytes")
+            saida.append("Necessidade de Compactação: NÃO (Blocos são mapeados livremente pelo i-node/índice)")
+            
+        return "\n".join(saida) + "\n"

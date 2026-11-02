@@ -56,8 +56,8 @@ def iniciar_cli():
             elif comando == 'fs_status':
                 detalhes = True if '--detalhes' in partes else False
 
-                # TODO: implementar mapa do disco e a arvore
-                print(em_andamento)
+                resultado = fs.fs_status(detalhes)
+                print(resultado)
 
             else:
                 print(f"Comando desconhecido ou invalido: {comando}")
