@@ -49,8 +49,8 @@ def iniciar_cli():
                 caminho = partes[1]
                 tamanho_bytes = parse_tamanho(partes[3])
                 
-                # TODO: implementar funcao de criar arquivo (precisa de um caminho antes)
-                print(em_andamento)
+                resultado = fs.create(caminho, tamanho_bytes)
+                print(resultado)
 
             # Comando 4 - fs_status
             elif comando == 'fs_status':
