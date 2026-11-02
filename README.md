@@ -6,6 +6,7 @@
 3. `fs_status --detalhes`
 
 Importante para utilização adequada do programa: 
+
 1 - O comando mkdir pode apenas criar um diretorio por vez. Para criar um diretorio dentro de outro diretorio, é necessário citar quem é o pai, em ordem.
 Exemplo: 1. `mdkir downloads` ; 2. `mkdir donwloads/jogos`. 
 Caso não seja esta a ordem de execução, o argumento não será lido adequadamente e não será criado nenhum dos dois diretórios.
